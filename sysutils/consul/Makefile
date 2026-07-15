@@ -1,5 +1,5 @@
 # XXX no i386 equivalent to mem_openbsd_amd64.go
-#ONLY_FOR_ARCHS=		amd64
+ONLY_FOR_ARCHS=		amd64,arm64
 
 COMMENT=		service discovery and configuration tool
 
