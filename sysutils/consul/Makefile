@@ -31,7 +31,6 @@ MODGO_LDFLAGS +=	-X github.com/hashicorp/consul/version.VersionPrerelease="" # e
 
 MAKE_ENV += CGO_ENABLED=1 
 MAKE_ENV += GOBIN="${MODGO_WORKSPACE}/bin" 
-MAKE_ENV += GOCACHE="${PORTSDIR}/.cache/go-build"
 MAKE_ENV += GOMODCACHE="${MODGO_WORKSPACE}/pkg/mod"
 
 USE_GMAKE = Yes
