@@ -35,9 +35,7 @@ MAKE_ENV +=		BUILDINFO_TAG=tags-v${V} \
 ALL_TARGET =		github.com/VictoriaMetrics/VictoriaMetrics
 
 do-build:
-	cd ${WRKSRC} && GOOS=openbsd && CGO_ENABLED=0 go build -o bin/victoria-metrics-pure ${WRKSRC}/app/victoria-metrics
-	cd ${WRKSRC} && GOOS=openbsd ${MAKE_ENV} ${MAKE_PROGRAM} \
-	    victoria-metrics-pure vmutils-pure
+	cd ${WRKSRC} && GOOS=openbsd ${MAKE_ENV} ${MAKE_PROGRAM} victoria-metrics-pure vmutils-pure
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/victoria-metrics-pure ${PREFIX}/bin/vmetrics
@@ -49,14 +47,15 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/vmrestore-pure ${PREFIX}/bin/vmetricsrestore
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/vmctl-pure ${PREFIX}/bin/vmetricsctl
 	${INSTALL_DATA_DIR} ${PREFIX}/share/doc/vmetrics/
+	${INSTALL_DATA_DIR} ${PREFIX}/share/doc/vmetrics/alerts/
 	${INSTALL_DATA} ${WRKSRC}/README.md ${PREFIX}/share/doc/vmetrics/
 	${INSTALL_DATA} ${WRKSRC}/LICENSE ${PREFIX}/share/doc/vmetrics/
 	(cd ${WRKSRC}/docs/victoriametrics/ && pax -w .) | \
 	    (cd ${PREFIX}/share/doc/vmetrics/ && pax -r)
 	${INSTALL_DATA} ${WRKSRC}/app/vmauth/example_config.yml \
 	    ${PREFIX}/share/doc/vmetrics/vmauth_example_config.yml
-	${INSTALL_DATA} ${WRKSRC}/deployment/docker/rules/alerts-single-node.yml \
-	    ${PREFIX}/share/doc/vmetrics/vmetricsalert_example_config.yml
+	${INSTALL_DATA} ${WRKSRC}/deployment/docker/rules/alerts-*.yml \
+	    ${PREFIX}/share/doc/vmetrics/alerts/
 	${INSTALL_DATA} ${WRKSRC}/deployment/docker/prometheus-vm-single.yml \
 	    ${PREFIX}/share/doc/vmetrics/vmetrics_example_config.yml
 
